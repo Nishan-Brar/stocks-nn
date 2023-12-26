@@ -61,44 +61,44 @@ def outer_function(d, stocks_np, NUMBER_OF_YEARS_TO_CONSIDER, NUMBER_OF_LINES, f
 
     # Now we drop any columns containing NaN value(s)
     booleans = ~np.isnan(filtered_dates_stocks_np).any(axis=0)
-    filtered_dates_and_stocks_np = filtered_dates_stocks_np[:, booleans]
+    filtered_dates_stocks_np = filtered_dates_stocks_np[:, booleans]
     stocks = stocks[booleans]
     # We also need to drop these columns from `cats_np`
     filtered_cats_np = cats_np[:, booleans]
-    # Filter `price_after_one_year` to only include end stock price of stocks in `filtered_dates_and_stocks_np`
+    # Filter `price_after_one_year` to only include end stock price of stocks in `filtered_dates_stocks_np`
     price_after_one_year = price_after_one_year[booleans]
 
     # Now we check if there are any nan in `price_after_one_year` and also remove corresponding columns from
-    # `filtered_dates_and_stocks_np`
+    # `filtered_dates_stocks_np`
     booleans = ~np.isnan(price_after_one_year)
     price_after_one_year = price_after_one_year[booleans]
-    filtered_dates_and_stocks_np = filtered_dates_and_stocks_np[:, booleans]
+    filtered_dates_stocks_np = filtered_dates_stocks_np[:, booleans]
     stocks = stocks[booleans]
     # We also need to drop these columns from `cats_np`
     filtered_cats_np = filtered_cats_np[:, booleans]
 
     # Get current prices
-    current_prices = filtered_dates_and_stocks_np[-1, :]
+    current_prices = filtered_dates_stocks_np[-1, :]
 
     # Create data row by row
-    iters = range(filtered_dates_and_stocks_np.shape[1])
+    iters = range(filtered_dates_stocks_np.shape[1])
 
     # Store rows
     cats_dict = dict()
     cats_df = cats_df.iloc[:, cats_index]
     for k, category in zip(cats_index, cats_df.columns):
-        cats_dict[k] = np.empty(filtered_dates_and_stocks_np.shape[1], dtype=int)
+        cats_dict[k] = np.empty(filtered_dates_stocks_np.shape[1], dtype=int)
 
     features_dict = dict()
     for k in features_subset_indexes:
-        features_dict[k] = np.zeros((filtered_dates_and_stocks_np.shape[1], 1))
+        features_dict[k] = np.zeros((filtered_dates_stocks_np.shape[1], 1))
 
-    row_storage = np.zeros((filtered_dates_and_stocks_np.shape[1], NUMBER_OF_LINES + 2))
+    row_storage = np.zeros((filtered_dates_stocks_np.shape[1], NUMBER_OF_LINES + 2))
     # This goes through the columns
     for i in iters:
         # `-1` needed as `+1` is in original notebook due to slicing being end-exclusive
         features = features_np[d - 1, features_subset_indexes]
-        row = inner_function(i, NUMBER_OF_LINES, filtered_dates_and_stocks_np, price_after_one_year, current_prices)
+        row = inner_function(i, NUMBER_OF_LINES, filtered_dates_stocks_np, price_after_one_year, current_prices)
 
         # Get each stock's corresponding categorical variables.
         cats = filtered_cats_np[cats_index, i]

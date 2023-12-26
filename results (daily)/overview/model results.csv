@@ -1,8 +1,0 @@
-features,lines,years,layers,neurons per layer,total neurons,batch size,technique,val_r_square
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,32,64,2048,base,0.8881293004063244
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,32,64,2048,dropout layers,0.8775442017335303
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,32,64,2048,batch regularisation,0.8590305137090024
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,32,64,2048,dropout & batch,0.8252184402176643
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,64,128,2048,base,0.8885843778874992
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,64,128,2048,dropout layers,0.883938032454973
-[sectors Cars Indu production Manu $ Narrow $],16,3,2,64,128,2048,batch regularisation,0.8678098464725714
