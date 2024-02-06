@@ -4,7 +4,7 @@
 The primary objective of this project is to explore the feasibility of creating a model capable of predicting the price of a stock (roughly*) one year into the future for the top 1000 companies in the US by market capitalisation. The ultimate aim is to construct profitable stock portfolios based on these predictions. An additional aspect of this project is to assess the impact of incorporating leading and lagging economic indicators of the US from OECD data on the prediction performance.
 
 ## Results
-Ultimately, it is clear from the plot `results/overview/results (loss).html` that models with economic indicators perform substantially better than those without. The model produced profitable portfolios on the test set roughly 68% of the time. However, further analysis incorporating cross-validation is required to assess the capability of the model in creating profitable portfolios in many different states of the economy and stock market. 
+Ultimately, it is clear from the plot `results/overview/results (loss).html` that models which use economic indicators to inform their predictions perform substantially better. The best model produced profitable portfolios on the test set roughly 68% of the time. The portfolios this model generated in the training, validation and test set (along with their performance) are visualised in `results/best_model_portfolios.html`. However, further analysis incorporating cross-validation is required to assess the capability of the model in creating profitable portfolios in many different states of the economy and stock market. 
 
 ## Explanation of project:
 1. "Data creation" notebook
