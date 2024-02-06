@@ -31,5 +31,5 @@ Ultimately, it is clear from the plot `results/overview/results (loss).html` tha
 		- After a rate is chosen, a more detailed plot (results/best_model_portfolios.html) is created which plots the predicted ROI of portfolios against the actual ROI of the portfolios (with more information available upon hovering over the points) 
 
 ## Caveats
-- * The prediction is for approximately 530 days into the future from the current date, equating to around 365 weekdays as the market is closed on weekends
+- The prediction is for approximately 530 days into the future from the current date, equating to around 365 weekdays as the market is closed on weekends
 - The `price.csv` file, essential for the project, is too large for direct upload. Therefore, a zipped version is included in the repository. Users must unzip this file to ensure the proper functioning of the project components. Alternatively, users can run the `1-Data creation.ipynb` notebook, which employs the `yfinance` library to generate the `price.csv` file. However, this process may be time-consuming due to the volume of data to be downloaded.
