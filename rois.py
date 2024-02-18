@@ -6,10 +6,7 @@ def normalize(arr):
     total = sum(arr)
     return [num/total for num in arr]
 
-def portfolio_weights(rate: float, expected_roi_per_stock) -> np.ndarray:
-    if rate > 1:
-        raise ValueError("`rate` must be less than 1")
-
+def portfolio_weights(rate, expected_roi_per_stock):
     length = len(expected_roi_per_stock)
 
     # Create a numpy array with the given length, filled with the values 1, rate, rate^2, ..., rate^(length-1)
@@ -49,25 +46,25 @@ def rois_func(tup):
     length = port_index.unique().shape[0]
     rois = np.zeros((length, 4))
     for i, date in enumerate(port_index.unique()):
-        # sort by expected roi
+        # sort by predicted ROI
         current_df = portfolio_data.loc[date, :]
 
-        # Get array containing expected roi for each stock
-        expected_roi_per_stock = ((current_df["predicted 1 year"].values - current_df["current price"].values) /
+        # Get array containing predicted ROI for each stock
+        expected_roi_per_stock = ((current_df["predicted prices"].values - current_df["current price"].values) /
                                   current_df["current price"].values) * 100
-        current_df["expected roi"] = expected_roi_per_stock
+        current_df["predicted ROI"] = expected_roi_per_stock
 
-        current_df = current_df.sort_values(["expected roi"], ascending=False)
+        current_df = current_df.sort_values(["predicted ROI"], ascending=False)
 
-        weights, num_stocks = portfolio_weights(rate, current_df["expected roi"].values)
+        weights, num_stocks = portfolio_weights(rate, current_df["predicted ROI"].values)
 
         current_portfolio_wealth = sum([weights[w] * decimal.Decimal(current_df["current price"][w]) for w in range(len(weights))])
         current_portfolio_wealth = float(current_portfolio_wealth)
         if current_portfolio_wealth != 0:
-            future_true_wealth = sum([weights[w] * decimal.Decimal(current_df.loc[:, "true 1 year"][w]) for w in range(len(weights))])
+            future_true_wealth = sum([weights[w] * decimal.Decimal(current_df.loc[:, "true prices"][w]) for w in range(len(weights))])
             future_true_wealth = float(future_true_wealth)
 
-            future_predicted_wealth = sum([weights[w] * decimal.Decimal(current_df.loc[:, "predicted 1 year"][w]) for w in range(len(weights))])
+            future_predicted_wealth = sum([weights[w] * decimal.Decimal(current_df.loc[:, "predicted prices"][w]) for w in range(len(weights))])
             future_predicted_wealth = float(future_predicted_wealth)
 
             if future_true_wealth < 0:
@@ -83,6 +80,6 @@ def rois_func(tup):
             rois[i, :] = np.array([rate, true_roi, expected_roi, num_stocks])
         else:
             # Whenever all stocks are expected to decrease in value the following is added instead. True ROI and
-            # expected ROI cannot be calculated due to divide by zero error.
+            # predicted ROI cannot be calculated due to divide by zero error.
             rois[i, :] = np.array([rate, np.nan, np.nan, np.nan])
     return rois
