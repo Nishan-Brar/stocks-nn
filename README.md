@@ -1,5 +1,4 @@
 # Future Stock Price Prediction
-Project Website: https://blue-goby-nzj8.squarespace.com/?password=nishan
 
 ## Objective
 With the ultimate goal of constructing profitable stock portfolios, this project investigates the feasibility of building a model to predict the price of the top 1000 US companies by market cap 1.5 years ahead. The project will also assess the impact of including leading and lagging economic indicators from OECD data on the model's predictive power.
